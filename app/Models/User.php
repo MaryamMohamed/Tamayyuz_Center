@@ -61,14 +61,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
-/*
-    public static function boot() {
-        parent::boot();
 
-        static::roleAttached(function($user, $role) {
-        });
-        static::roleSynced(function($user, $changes) {
-        });
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
-    */
+
+    public function assignRole(Role $role)
+    {
+        return $this->roles()->save($role);
+    }
+    
 }
