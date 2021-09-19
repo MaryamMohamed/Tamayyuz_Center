@@ -71,5 +71,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->roles()->save($role);
     }
+
+    public function updateRole(Role $role)
+    {
+        return $this->roles()->update(array('role_id' => $role->id));
+    }
     
 }

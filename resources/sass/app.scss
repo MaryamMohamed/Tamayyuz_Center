@@ -6,3 +6,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+$fa-font-path: "E:/tamayyuz/Tamayyuz_Center/node_modules/@fortawesome/fontawesome-free/webfonts";
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';

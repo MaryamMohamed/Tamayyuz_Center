@@ -33,6 +33,13 @@ Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFaceboo
 Route::group(['prefix' => 'admin/', 'middleware' => ['role:administrator']], function(){
     # code...
     Route::get('dashboard', 'App\Http\Controllers\AdminController@dashboard')->name('adminDashboard');
+    Route::get('manage/user/index', 'App\Http\Controllers\AdminController@userIndex')->name('userIndex');
+    Route::get('manage/user/create', 'App\Http\Controllers\AdminController@userCreate')->name('userCreate');
+    Route::post('manage/user/store', 'App\Http\Controllers\AdminController@userStore')->name('userStore');
+//  Route::post('manage/user/show/{id}', 'App\Http\Controllers\AdminController@userShow')->name('userShow');
+    Route::get('manage/user/edit/{id}', 'App\Http\Controllers\AdminController@userEdit')->name('userEdit');
+    Route::post('manage/user/update/{id}', 'App\Http\Controllers\AdminController@userUpdate')->name('userUpdate');
+    Route::get('manage/user/delete/{id}', 'App\Http\Controllers\AdminController@userDelete')->name('userDelete');
 });
 
 //user routes
