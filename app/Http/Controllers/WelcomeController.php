@@ -1,15 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Product;
+
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\CursorPaginator;
 
-
-class ProductController extends Controller
+class WelcomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +16,7 @@ class ProductController extends Controller
     {
         //
         $products = Product::orderBy('id', 'desc')->simplePaginate(10);
-        return view('admin.manage.product.index', compact('products'));
+        return view('welcome', compact('products'));
     }
 
     /**
@@ -31,7 +27,6 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('admin.manage.product.create');
     }
 
     /**
@@ -43,22 +38,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        $user = Product::create([
-            'name' => $request->name,
-            'details' => $request->details,
-            'price' => $request->price,
-        ]);
-
-        return redirect()->route('productIndex');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
         //
     }
@@ -66,48 +54,34 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
-        $product = Product::find($id);
-        return view('admin.manage.product.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        $product = Product::find($id);
-
-        $product->name = $request->name;
-        $product->details = $request->details;
-        $product->price = $request->price;
-
-        $product->save();
-
-        return redirect()->route('productIndex');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        Product::find($id)->delete();
-
-        return redirect()->route('productIndex');
     }
 }

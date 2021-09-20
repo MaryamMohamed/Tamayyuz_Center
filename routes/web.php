@@ -15,9 +15,11 @@ use App\Models\Role;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
+*/
+Route::get('/', 'App\Http\Controllers\WelcomeController@index')->name('welcomeIndex');
 
 Auth::routes();
 
