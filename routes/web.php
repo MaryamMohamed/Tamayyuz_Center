@@ -15,12 +15,12 @@ use App\Models\Role;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
 });
-*/
-Route::get('/', 'App\Http\Controllers\WelcomeController@index')->name('welcomeIndex');
 
+//Route::get('/', 'App\Http\Controllers\WelcomeController@index')->name('welcomeIndex');
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'indexProduct'])->name('indexProduct');  
 Auth::routes();
 
 //routes to get email and password verify
@@ -59,3 +59,15 @@ Route::group(['prefix' => 'user/', 'middleware' => ['role:user']], function(){
     # code...
     Route::get('dashboard', 'App\Http\Controllers\UserController@dashboard')->name('userDashboard');    
 });
+
+//cart routes
+Route::group(['middleware' => ['auth']], function(){
+    # code...
+    Route::get('cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('cart');
+    Route::get('add-to-cart/{id}', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('add.to.cart');
+    Route::patch('update-cart', [App\Http\Controllers\ProductController::class, 'updateCart'])->name('update.cart');
+    Route::delete('remove-from-cart', [App\Http\Controllers\ProductController::class, 'removeFromCart'])->name('remove.from.cart');
+
+});
+
+//Route::get('addToCart/{$id}', 'App\Http\Controllers\ProductController@addToCart')->name('addToCart');

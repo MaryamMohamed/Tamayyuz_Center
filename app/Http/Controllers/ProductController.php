@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\CursorPaginator;
+
+use Session;
 
 
 class ProductController extends Controller
@@ -109,5 +112,63 @@ class ProductController extends Controller
         Product::find($id)->delete();
 
         return redirect()->route('productIndex');
+    }
+
+    public function indexProduct()
+
+    {
+
+        $products = Product::all();
+
+        return view('products', compact('products'));
+
+    }
+
+    public function cart()
+
+    {
+        return view('cart');
+    }
+
+    public function addToCart($id)
+    {
+        $product = Product::findOrFail($id);          
+        $cart = session()->get('cart', []);
+
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+            ];
+        }
+
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+    public function updateCart(Request $request)
+    {
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+
+    public function removeFromCart(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
     }
 }
