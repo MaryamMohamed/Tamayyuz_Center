@@ -89,7 +89,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('productIndex')}}" class="nav-link">
                   <p>Products Manage</p>
                 </a>
               </li>

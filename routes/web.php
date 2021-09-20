@@ -33,6 +33,8 @@ Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFaceboo
 Route::group(['prefix' => 'admin/', 'middleware' => ['role:administrator']], function(){
     # code...
     Route::get('dashboard', 'App\Http\Controllers\AdminController@dashboard')->name('adminDashboard');
+
+    //user manage routes
     Route::get('manage/user/index', 'App\Http\Controllers\AdminController@userIndex')->name('userIndex');
     Route::get('manage/user/create', 'App\Http\Controllers\AdminController@userCreate')->name('userCreate');
     Route::post('manage/user/store', 'App\Http\Controllers\AdminController@userStore')->name('userStore');
@@ -40,6 +42,14 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['role:administrator']], fun
     Route::get('manage/user/edit/{id}', 'App\Http\Controllers\AdminController@userEdit')->name('userEdit');
     Route::post('manage/user/update/{id}', 'App\Http\Controllers\AdminController@userUpdate')->name('userUpdate');
     Route::get('manage/user/delete/{id}', 'App\Http\Controllers\AdminController@userDelete')->name('userDelete');
+
+    //product manage routes
+    Route::get('manage/product/index', 'App\Http\Controllers\ProductController@index')->name('productIndex');
+    Route::get('manage/product/create', 'App\Http\Controllers\ProductController@create')->name('productCreate');
+    Route::post('manage/product/store', 'App\Http\Controllers\ProductController@store')->name('productStore');
+    Route::get('manage/product/edit/{id}', 'App\Http\Controllers\ProductController@edit')->name('productEdit');
+    Route::post('manage/product/update/{id}', 'App\Http\Controllers\ProductController@update')->name('productUpdate');
+    Route::get('manage/product/delete/{id}', 'App\Http\Controllers\ProductController@destroy')->name('productDelete');
 });
 
 //user routes
