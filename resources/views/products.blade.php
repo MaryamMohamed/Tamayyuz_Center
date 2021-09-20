@@ -18,7 +18,7 @@
 
                     <h4>{{ $product->name }}</h4>
 
-                    <p>{{ $product->description }}</p>
+                    <p>{{ $product->details }}</p>
 
                     <p><strong>Price: </strong> {{ $product->price }}$</p>
 

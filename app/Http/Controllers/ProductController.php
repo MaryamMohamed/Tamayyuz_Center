@@ -171,4 +171,10 @@ class ProductController extends Controller
             session()->flash('success', 'Product removed successfully');
         }
     }
+
+    public function Checkout()
+    {
+        # code...
+        return view('checkout');
+    }
 }
